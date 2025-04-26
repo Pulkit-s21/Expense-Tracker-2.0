@@ -2,7 +2,7 @@ import express, { json } from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import authRoutes from "./routes/authRoutes.js"
-// import middleware from "./middleware/middleware.js"
+import middleware from "./middleware/middleware.js"
 
 dotenv.config()
 
