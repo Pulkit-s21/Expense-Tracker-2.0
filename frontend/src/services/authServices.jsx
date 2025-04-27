@@ -30,9 +30,9 @@ export const login = async (userData) => {
 // getUserDetail
 export const getUserDetail = async (id, token) => {
   try {
-    const res = await axios.get(`${baseUrl}/auth/user/${id}`, token, {
+    const res = await axios.get(`${baseUrl}/auth/user/${id}`, {
       headers: {
-        "Content-Type": "application/json",
+        Authorization: token,
       },
     })
 
