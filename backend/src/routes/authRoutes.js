@@ -4,6 +4,7 @@ import { validationError } from "../validator/error.js"
 import bcrypt from "bcryptjs"
 import prisma from "../prismaClient.js"
 import jwt from "jsonwebtoken"
+import middleware from "../middleware/middleware.js"
 
 const router = Router()
 
@@ -47,7 +48,7 @@ router.post("/signUp", async (req, res) => {
     res.json({ token })
   } catch (err) {
     console.error(err.message)
-    return res.status(503).json({ message: "Something went wrong !!" })
+    return res.status(503).json({ message: err.message })
   }
 })
 
@@ -81,6 +82,29 @@ router.post("/login", async (req, res) => {
     })
 
     res.json({ token })
+  } catch (err) {
+    console.error(err.message)
+    return res.status(503).json({ message: "Something went wrong !!" })
+  }
+})
+
+// userDetail
+router.get(`/user/:id`, middleware, async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const user = await prisma.user.findUnique({
+      where: { id: parseInt(id) },
+      select: {
+        id: true,
+        email: true,
+        username: true,
+      },
+    })
+
+    if (!user) return res.status(404).json({ message: "No user found !!" })
+
+    return res.json(user)
   } catch (err) {
     console.error(err.message)
     return res.status(503).json({ message: "Something went wrong !!" })
