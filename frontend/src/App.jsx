@@ -9,7 +9,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes.jsx"
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<ProtectedRoutes element={<Home />} />} />
         <Route path="/signup" element={<Signup />} />
