@@ -43,7 +43,7 @@ export const UserProvider = ({ children }) => {
         const userData = await getUserDetail(decodedUser.id, storedToken)
 
         setUser(userData)
-        setIsLoading(true)
+        setLoggedIn(true)
 
         const timeUntilTokenExpires = decodedUser.exp * 1000 - Date.now()
         const logoutTimer = setTimeout(() => {
