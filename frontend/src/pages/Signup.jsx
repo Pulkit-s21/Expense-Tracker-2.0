@@ -35,13 +35,13 @@ export const Signup = () => {
       const data = await signUp(userData)
 
       if (data.token) {
-        localStorage.setItem("token", data.token)
         Swal.fire({
           icon: "success",
           text: `Welcome ${userData.username}`,
           showConfirmButton: false,
           timer: 2000,
         }).then(() => {
+          localStorage.setItem("token", data.token)
           window.location.href = "/"
         })
       }
