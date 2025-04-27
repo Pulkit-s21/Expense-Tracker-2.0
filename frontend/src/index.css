@@ -7,11 +7,6 @@
   box-sizing: border-box;
 }
 
-/* 2. Remove default margin */
-* {
-  margin: 0;
-}
-
 /* 3. Enable keyword animations */
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -34,14 +29,6 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
-}
-
-/* 7. Inherit fonts for form controls */
-input,
-button,
-textarea,
-select {
-  font: inherit;
 }
 
 /* 8. Avoid text overflows */
