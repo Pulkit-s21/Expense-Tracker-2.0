@@ -2,6 +2,8 @@ import express, { json } from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import authRoutes from "./routes/authRoutes.js"
+import transactionRoutes from "./routes/tranactionRoutes.js"
+import incomeRoutes from "./routes/incomeRoutes.js"
 import middleware from "./middleware/middleware.js"
 
 dotenv.config()
@@ -23,6 +25,8 @@ app.use(
 
 // routes
 app.use("/auth", authRoutes)
+app.use("/transaction", middleware, transactionRoutes)
+app.use("/income", middleware, incomeRoutes)
 
 app.listen(PORT, (req, res) => {
   console.info(`Server running on port ${PORT}`)
