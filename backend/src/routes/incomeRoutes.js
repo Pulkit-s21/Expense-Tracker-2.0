@@ -73,15 +73,19 @@ router.put("/edit/:id", async (req, res) => {
       return res.status(400).json({ message: "Forbidden. Access Denied !!" })
     }
 
-    const income = await prisma.income.update({
+    const income = await prisma.income.findUnique({
       where: { id: parseInt(id) },
-      data: { title, date, amount },
     })
 
     if (!income)
       return res
         .status(404)
         .json({ message: "No income found with this id !!" })
+
+    await prisma.income.update({
+      where: { id: parseInt(id) },
+      data: { title, date, amount },
+    })
 
     res.json({ message: "Income updated" })
   } catch (err) {
@@ -95,12 +99,22 @@ router.put("/delete/:id", async (req, res) => {
   try {
     const { id } = req.params
 
-    const income = await prisma.income.update({
+    const income = await prisma.income.findUnique({
       where: { id: parseInt(id) },
-      data: { isDeleted: true },
     })
 
     if (!income) return res.status(404).json({ message: "No income found !!" })
+
+    if (income?.isDeleted === true) {
+      return res
+        .status(400)
+        .json({ message: "Income has already been deleted !!" })
+    }
+
+    await prisma.income.update({
+      where: { id: parseInt(id) },
+      data: { isDeleted: true },
+    })
 
     res.json({ message: "Income Deleted !!" })
   } catch (err) {
