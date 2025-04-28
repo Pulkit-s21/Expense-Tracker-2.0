@@ -62,7 +62,7 @@ router.get("/read/:userId", async (req, res) => {
         .status(404)
         .json({ message: "No transaction found for user !!" })
 
-    res.json({ allTransactions })
+    res.json(allTransactions)
   } catch (err) {
     console.error(err.message)
     return res.status(503).json({ message: err.message })
