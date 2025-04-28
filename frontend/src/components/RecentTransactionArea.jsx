@@ -1,29 +1,26 @@
+import { useContext, useEffect, useState } from "react"
+import { getTransactions } from "../services/transactionServices"
 import { RecentTransaction } from "./RecentTransaction"
+import { UserContext } from "../helpers/UserContext"
 
 export const RecentTransactionArea = () => {
-  const transactions = [
-    {
-      logo: "",
-      title: "Shopping",
-      date: "27 Apr, 2025",
-      amount: 1320,
-      type: "transaction",
-    },
-    {
-      logo: "",
-      title: "EMI",
-      date: "30 Apr, 2025",
-      amount: 4350,
-      type: "transaction",
-    },
-    {
-      logo: "",
-      title: "Recharge",
-      date: "15 May, 2025",
-      amount: 260,
-      type: "transaction",
-    },
-  ]
+  const { user } = useContext(UserContext)
+  const [transactionData, setTransactionData] = useState([])
+
+  const token = localStorage.getItem("token")
+
+  const fetchTransactions = async () => {
+    try {
+      const data = await getTransactions(user.id, token)
+      setTransactionData(data)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchTransactions()
+  }, [])
 
   return (
     <div className="flex flex-col bg-white p-4 w-[40%] gap-3">
@@ -35,7 +32,7 @@ export const RecentTransactionArea = () => {
       </div>
 
       <ul className="flex flex-col gap-2">
-        {transactions.map((transaction, idx) => {
+        {transactionData?.map((transaction, idx) => {
           return (
             <RecentTransaction
               key={idx}
@@ -43,7 +40,6 @@ export const RecentTransactionArea = () => {
               title={transaction.title}
               date={transaction.date}
               amount={transaction.amount}
-              type={transaction.type}
             />
           )
         })}
