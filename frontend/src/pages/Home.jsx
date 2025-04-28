@@ -4,6 +4,7 @@ import { PieChart } from "@mui/x-charts/PieChart"
 
 export const Home = () => {
   const { user, logout } = useContext(UserContext)
+
   return (
     <div className="bg-gray-200 h-dvh text-black font-semibold flex gap-6">
       {/* user info */}
