@@ -29,7 +29,7 @@ router.post("/create", async (req, res) => {
       },
     })
 
-    if (!income || income.id) {
+    if (!income || !income.id) {
       return res.status(400).json({ message: "Failed to add income !!" })
     }
 
@@ -56,7 +56,7 @@ router.get("/read/:userId", async (req, res) => {
     if (!allIncomes)
       return res.status(404).json({ message: "No income found for user !!" })
 
-    res.json({ allIncomes })
+    res.json(allIncomes)
   } catch (err) {
     console.error(err.message)
     return res.status(503).json({ message: err.message })
