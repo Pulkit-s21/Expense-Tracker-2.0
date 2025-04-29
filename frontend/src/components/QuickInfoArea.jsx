@@ -3,15 +3,20 @@ import { useContext } from "react"
 import { UserContext } from "../helpers/UserContext.jsx"
 
 export const QuickInfoArea = () => {
-  const { totalExpense } = useContext(UserContext)
+  const { total } = useContext(UserContext)
 
   const quickInfo = [
-    { logo: "", title: "Total Balance", amount: "22000", type: "balance" },
-    { logo: "", title: "Total Income", amount: "30000", type: "income" },
+    {
+      logo: "",
+      title: "Total Balance",
+      amount: total.balance,
+      type: "balance",
+    },
+    { logo: "", title: "Total Income", amount: total.income, type: "income" },
     {
       logo: "",
       title: "Total Expense",
-      amount: totalExpense,
+      amount: total.expense,
       type: "transaction",
     },
   ]
