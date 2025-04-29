@@ -15,7 +15,7 @@ export const Chart = () => {
             additionalRadius: -30,
             color: "gray",
           },
-          // arcLabel: (item) => `${item.value}%`, // TODO: Figure out how to show % for each column
+          // arcLabel: (item) => `${item.value}%`, // TODO: <---
           data: [
             { id: 0, value: total.balance, label: "Total Balance" },
             { id: 1, value: total.income, label: "Total Income" },

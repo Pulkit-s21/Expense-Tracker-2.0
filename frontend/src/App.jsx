@@ -29,3 +29,7 @@ export default App
 // : Create transaction APIs : DONE
 // : Create income APIs : DONE
 // : Create Postman collection for all APIs : DONE
+// : Create services from transaction & income APIs : DONE
+// : Show actual data from QuickInfoBox from BE : DONE
+// TODO: Find a way to reload func when transaction OR income is added
+// TODO: Figure out how to show % for each column
