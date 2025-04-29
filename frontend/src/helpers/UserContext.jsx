@@ -1,7 +1,9 @@
+import Swal from "sweetalert2"
 import { createContext, useState, useEffect } from "react"
 import { jwtDecode } from "jwt-decode"
 import { getUserDetail } from "../services/authServices.jsx"
-import Swal from "sweetalert2"
+import { getTransactions } from "../services/transactionServices.jsx"
+import { getIncomes } from "../services/incomeServices.jsx"
 
 export const UserContext = createContext(null)
 
@@ -9,6 +11,16 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({})
   const [loggedIn, setLoggedIn] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [userNumbers, setUserNumbers] = useState({
+    expense: [],
+    income: [],
+    balance: [],
+  })
+  const [total, setTotal] = useState({
+    expense: 0,
+    income: 0,
+    balance: 0,
+  })
 
   const logout = () => {
     setUser(null)
@@ -62,9 +74,67 @@ export const UserProvider = ({ children }) => {
     initializeUser()
   }, [])
 
+  const fetchTransactions = async () => {
+    try {
+      if (user.id !== undefined) {
+        const data = await getTransactions(
+          user.id,
+          localStorage.getItem("token")
+        )
+        setUserNumbers((prev) => ({
+          ...prev,
+          expense: data,
+        }))
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  const fetchIncomes = async () => {
+    try {
+      if (user.id !== undefined) {
+        const data = await getIncomes(user.id, localStorage.getItem("token"))
+        setUserNumbers((prev) => ({ ...prev, income: data }))
+      }
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
+  useEffect(() => {
+    fetchTransactions()
+    fetchIncomes()
+  }, [user])
+
+  useEffect(() => {
+    const expense = userNumbers.expense.reduce(
+      (acc, item) => acc + item.amount,
+      0
+    )
+    const income = userNumbers.income.reduce(
+      (acc, item) => acc + item.amount,
+      0
+    )
+    setTotal((prev) => ({
+      ...prev,
+      expense,
+      income,
+      balance: income - expense,
+    }))
+  }, [userNumbers])
+
   return (
     <UserContext.Provider
-      value={{ user, setUser, loggedIn, isLoading, logout }}
+      value={{
+        user,
+        setUser,
+        loggedIn,
+        isLoading,
+        logout,
+        userNumbers,
+        total,
+      }}
     >
       {!isLoading && children}
     </UserContext.Provider>
