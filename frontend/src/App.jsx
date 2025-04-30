@@ -35,6 +35,6 @@ export default App
 // TODO: Figure out how to show % for each column
 // TODO: If token changes then kick out user for invalid token
 // : Add all other services for transaction : DONE
-// TODO: Add all other services for income
-// TODO: Pass limit to recent transactions to show only few at first
-// TODO: Return transactions in descending order from BE
+// : Add all other services for income : DONE
+// : Pass limit to recent transactions to show only few at first : DONE
+// : Return transactions in descending order from BE : DONE
