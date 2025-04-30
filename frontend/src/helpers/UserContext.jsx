@@ -132,7 +132,6 @@ export const UserProvider = ({ children }) => {
         loggedIn,
         isLoading,
         logout,
-        userNumbers,
         total,
       }}
     >
