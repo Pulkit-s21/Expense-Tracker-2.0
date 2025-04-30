@@ -1,10 +1,10 @@
 // import "./App.css"
 import Navbar from "./components/Navbar"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { Home } from "./pages/Home.jsx"
 import Signup from "./pages/Signup.jsx"
 import Login from "./pages/Login.jsx"
 import ProtectedRoutes from "./components/ProtectedRoutes.jsx"
+import { Home } from "./pages/Home.jsx"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 function App() {
   return (
@@ -33,3 +33,8 @@ export default App
 // : Show actual data from QuickInfoBox from BE : DONE
 // TODO: Find a way to reload func when transaction OR income is added
 // TODO: Figure out how to show % for each column
+// TODO: If token changes then kick out user for invalid token
+// : Add all other services for transaction : DONE
+// TODO: Add all other services for income
+// TODO: Pass limit to recent transactions to show only few at first
+// TODO: Return transactions in descending order from BE
