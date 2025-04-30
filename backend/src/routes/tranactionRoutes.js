@@ -47,6 +47,7 @@ router.post("/create", async (req, res) => {
 // read
 router.get("/read/:userId", async (req, res) => {
   try {
+    const limit = req.query.limit ? parseInt(req.query.limit) : undefined
     const { userId } = req.params
 
     if (req.userId !== parseInt(userId)) {
@@ -55,6 +56,8 @@ router.get("/read/:userId", async (req, res) => {
 
     const allTransactions = await prisma.transaction.findMany({
       where: { userId: parseInt(userId) },
+      orderBy: { createdAt: "desc" },
+      take: limit || undefined,
     })
 
     if (!allTransactions)
