@@ -31,3 +31,35 @@ export const getTransactions = async (userId, token) => {
     throw err
   }
 }
+
+// update transaction
+export const updateTransaction = async (id, token, data) => {
+  try {
+    const res = await axios.put(`${baseUrl}/transactions/edit/${id}`, data, {
+      headers: {
+        Authorization: token,
+      },
+    })
+
+    return res.data
+  } catch (err) {
+    console.error(err.message)
+    throw err
+  }
+}
+
+// delete transaction
+export const deleteTransaction = async (id, token) => {
+  try {
+    const res = await axios.put(`${baseUrl}/transactions/delete/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+
+    return res.data
+  } catch (err) {
+    console.error(err.message)
+    throw err
+  }
+}
