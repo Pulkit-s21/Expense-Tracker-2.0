@@ -6,12 +6,13 @@ import { UserContext } from "../helpers/UserContext"
 export const RecentTransactionArea = () => {
   const { user } = useContext(UserContext)
   const [transactionData, setTransactionData] = useState([])
+  const limit = 10
 
   const token = localStorage.getItem("token")
 
   const fetchTransactions = async () => {
     try {
-      const data = await getTransactions(user.id, token)
+      const data = await getTransactions(user.id, token, limit)
       setTransactionData(data)
     } catch (err) {
       console.error(err.message)

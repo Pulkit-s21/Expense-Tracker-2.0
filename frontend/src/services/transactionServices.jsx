@@ -17,9 +17,10 @@ export const addTransaction = async (data, token) => {
 }
 
 // get transactions
-export const getTransactions = async (userId, token) => {
+export const getTransactions = async (userId, token, limit) => {
   try {
     const res = await axios.get(`${baseUrl}/transaction/read/${userId}`, {
+      params: limit ? { limit } : {},
       headers: {
         Authorization: token,
       },
