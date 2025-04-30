@@ -9,13 +9,17 @@ export const Chart = () => {
     <PieChart
       series={[
         {
-          highlightScope: { fade: "global", highlight: "item" },
+          highlightScope: { fade: "global", highlight: "item" }, // animation on hover
           faded: {
             innerRadius: 30,
             additionalRadius: -30,
             color: "gray",
           },
-          // arcLabel: (item) => `${item.value}%`, // TODO: <---
+          arcLabel: (item) => {
+            const totalValue = total.balance + total.income + total.expense
+            const percentage = ((item.value / totalValue) * 100).toFixed(0)
+            return `${percentage}%`
+          },
           data: [
             { id: 0, value: total.balance, label: "Total Balance" },
             { id: 1, value: total.income, label: "Total Income" },
@@ -23,6 +27,9 @@ export const Chart = () => {
           ],
         },
       ]}
+      slotProps={{
+        legend: { hidden: false },
+      }}
       width={300}
       height={300}
     />
