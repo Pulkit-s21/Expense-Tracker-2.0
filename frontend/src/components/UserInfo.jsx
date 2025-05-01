@@ -1,14 +1,16 @@
 import { useContext } from "react"
 import { UserContext } from "../helpers/UserContext"
 import { SidebarLinks } from "./SidebarLinks"
+import { useNavigate } from "react-router-dom"
 
 export const UserInfo = () => {
   const { user, logout } = useContext(UserContext)
+  const navigate = useNavigate()
 
   const sidebarLinks = [
-    { logo: "", title: "Dashboard", action: null },
-    { logo: "", title: "Income", action: null },
-    { logo: "", title: "Expense", action: null },
+    { logo: "", title: "Dashboard", action: () => navigate("/") },
+    { logo: "", title: "Income", action: () => navigate("/income") },
+    { logo: "", title: "Expense", action: () => navigate("/expense") },
     { logo: "", title: "Logout", action: logout },
   ]
 
