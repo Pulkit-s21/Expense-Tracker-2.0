@@ -24,23 +24,30 @@ model User {
 }
 
 model Transaction {
-    id              Int        @id @default(autoincrement())
+    id              Int                 @id @default(autoincrement())
     userId          Int
     title           String
     date            DateTime
     amount          Int
-    createdAt       DateTime  @default(now())
-    isDeleted       Boolean   @default(false)
-    user            User      @relation(fields: [userId], references: [id])
+    type            TransactionType     @default(expense)
+    createdAt       DateTime            @default(now())
+    isDeleted       Boolean             @default(false)
+    user            User                @relation(fields: [userId], references: [id])
 }
 
 model Income {
-    id              Int        @id @default(autoincrement())
+    id              Int                 @id @default(autoincrement())
     userId          Int
     title           String
     date            DateTime
     amount          Int
-    createdAt       DateTime  @default(now())
-    isDeleted       Boolean   @default(false)
-    user            User      @relation(fields: [userId], references: [id])
+    type            TransactionType     @default(income)
+    createdAt       DateTime            @default(now())
+    isDeleted       Boolean             @default(false)
+    user            User                @relation(fields: [userId], references: [id])
+}
+
+enum TransactionType {
+  expense
+  income
 }
