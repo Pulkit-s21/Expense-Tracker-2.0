@@ -18,7 +18,7 @@ export const Chart = () => {
           arcLabel: (item) => {
             const totalValue = total.balance + total.income + total.expense
             const percentage = ((item.value / totalValue) * 100).toFixed(0)
-            return `${percentage}%`
+            return `${percentage !== "NaN" ? `${percentage}%` : "No Data"}`
           },
           data: [
             { id: 0, value: total.balance, label: "Total Balance" },
