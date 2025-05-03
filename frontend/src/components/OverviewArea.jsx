@@ -1,11 +1,9 @@
-import { Chart } from "./Chart"
-
-export const OverviewArea = () => {
+export const OverviewArea = ({ component, heading }) => {
   return (
     <div className="flex flex-col gap-4 bg-white w-[60%] p-4">
-      <p className="font-thin">Financial Overview</p>
+      <p className="font-thin">{heading}</p>
 
-      <Chart />
+      {component}
     </div>
   )
 }
