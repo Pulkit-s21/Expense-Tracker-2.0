@@ -21,6 +21,7 @@ export const UserProvider = ({ children }) => {
     income: 0,
     balance: 0,
   })
+  const token = localStorage.getItem("token")
 
   const logout = () => {
     setUser(null)
@@ -77,10 +78,7 @@ export const UserProvider = ({ children }) => {
   const fetchTransactions = async () => {
     try {
       if (user.id !== undefined) {
-        const data = await getTransactions(
-          user.id,
-          localStorage.getItem("token")
-        )
+        const data = await getTransactions(user.id, token)
         setUserNumbers((prev) => ({
           ...prev,
           expense: data,
@@ -91,10 +89,12 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  console.log(userNumbers.expense)
+
   const fetchIncomes = async () => {
     try {
       if (user.id !== undefined) {
-        const data = await getIncomes(user.id, localStorage.getItem("token"))
+        const data = await getIncomes(user.id, token)
         setUserNumbers((prev) => ({ ...prev, income: data }))
       }
     } catch (err) {
@@ -133,6 +133,7 @@ export const UserProvider = ({ children }) => {
         isLoading,
         logout,
         total,
+        token,
       }}
     >
       {!isLoading && children}
