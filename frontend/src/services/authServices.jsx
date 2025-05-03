@@ -42,3 +42,19 @@ export const getUserDetail = async (id, token) => {
     throw err
   }
 }
+
+export const getUserTransactions = async (id, token, limit) => {
+  try {
+    const res = await axios.get(`${baseUrl}/auth/transactions/${id}`, {
+      params: limit ? { limit } : {},
+      headers: {
+        Authorization: token,
+      },
+    })
+
+    return res.data
+  } catch (err) {
+    console.error(err.message)
+    throw err
+  }
+}
