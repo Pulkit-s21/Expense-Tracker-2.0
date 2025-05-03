@@ -42,3 +42,6 @@ export default App
 // : Return transactions in descending order from BE : DONE
 // : Add diff pages for sidebar links : DONE
 // TODO: Showing sidebar on each page by importing on all. Try a diff method where it doesnt reloads and part on right does
+// : Change recent transaction to get income + transaction for user : DONE
+// TODO: Add recent expense to get transaction for user
+// TODO: Pass transaction data to bar chart
