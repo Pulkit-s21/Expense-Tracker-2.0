@@ -22,7 +22,7 @@ export const QuickInfoArea = () => {
   ]
 
   return (
-    <div className="grid grid-cols-3 gap-4 mt-4">
+    <div className="grid grid-cols-3 gap-4">
       {quickInfo.map((box, idx) => {
         return (
           <QuickInfoBox
