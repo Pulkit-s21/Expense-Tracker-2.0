@@ -1,18 +1,21 @@
 import { useContext, useEffect, useState } from "react"
-import { getTransactions } from "../services/transactionServices"
 import { RecentTransaction } from "./RecentTransaction"
 import { UserContext } from "../helpers/UserContext"
+import { FaLongArrowAltRight } from "react-icons/fa"
+import { Link } from "react-router-dom"
 
-export const RecentTransactionArea = () => {
-  const { user } = useContext(UserContext)
+export const RecentTransactionArea = ({
+  detailFunc,
+  limit,
+  heading,
+  page = "",
+}) => {
+  const { user, token } = useContext(UserContext)
   const [transactionData, setTransactionData] = useState([])
-  const limit = 10
 
-  const token = localStorage.getItem("token")
-
-  const fetchTransactions = async () => {
+  const fetchInfo = async () => {
     try {
-      const data = await getTransactions(user.id, token, limit)
+      const data = await detailFunc(user.id, token, limit)
       setTransactionData(data)
     } catch (err) {
       console.error(err.message)
@@ -20,16 +23,19 @@ export const RecentTransactionArea = () => {
   }
 
   useEffect(() => {
-    fetchTransactions()
+    fetchInfo()
   }, [])
 
   return (
-    <div className="flex flex-col bg-white p-4 w-[40%] gap-3">
+    <div className="flex flex-col bg-white p-4 w-[50%] gap-5 shadow-xl rounded-xl">
       <div className="flex justify-between">
-        <p>Recent Transactions</p>
-        <button className="bg-gray-200 px-4 rounded-md text-xs cursor-pointer">
-          See All
-        </button>
+        <p>{heading}</p>
+        <Link
+          to={page}
+          className="bg-gray-100 px-3 rounded-md text-xs cursor-pointer flex gap-2 items-center font-medium"
+        >
+          See All <FaLongArrowAltRight />
+        </Link>
       </div>
 
       <ul className="flex flex-col gap-2">
@@ -41,6 +47,7 @@ export const RecentTransactionArea = () => {
               title={transaction.title}
               date={transaction.date}
               amount={transaction.amount}
+              type={transaction.type}
             />
           )
         })}
