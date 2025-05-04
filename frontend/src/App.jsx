@@ -44,4 +44,7 @@ export default App
 // TODO: Showing sidebar on each page by importing on all. Try a diff method where it doesnt reloads and part on right does
 // : Change recent transaction to get income + transaction for user : DONE
 // TODO: Add recent expense to get transaction for user
-// TODO: Pass transaction data to bar chart
+// : Pass transaction data to bar chart : DONE
+// : Customize bar chart : DONE
+// : Make bar chart reusable : DONE
+// TODO: Pass data for specified days only to bar charts
