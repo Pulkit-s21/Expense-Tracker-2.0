@@ -4,8 +4,20 @@ import { UserContext } from "../helpers/UserContext"
 
 export const Barchart = ({ type, label, id, color }) => {
   const { userNumbers } = useContext(UserContext)
-  const data = userNumbers[type]?.map((item) => item.amount) || []
-  const xLabels = userNumbers[type]?.map((item) => item.title) || []
+
+  // bcz we only show last month on dashboard
+  const thirtyDaysAgo = new Date()
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+
+  const data =
+    userNumbers[type]
+      ?.filter((item) => new Date(item.date) >= thirtyDaysAgo)
+      .map((item) => item.amount) || []
+
+  const xLabels =
+    userNumbers[type]
+      ?.filter((item) => new Date(item.date) >= thirtyDaysAgo)
+      .map((item) => item.title) || []
 
   return (
     <BarChart
