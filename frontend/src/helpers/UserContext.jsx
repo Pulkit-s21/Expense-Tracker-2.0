@@ -89,8 +89,6 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  console.log(userNumbers.expense)
-
   const fetchIncomes = async () => {
     try {
       if (user.id !== undefined) {
@@ -134,6 +132,7 @@ export const UserProvider = ({ children }) => {
         logout,
         total,
         token,
+        userNumbers,
       }}
     >
       {!isLoading && children}
