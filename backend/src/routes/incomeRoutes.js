@@ -43,6 +43,7 @@ router.post("/create", async (req, res) => {
 // read
 router.get("/read/:userId", async (req, res) => {
   try {
+    const limit = req.query.limit ? parseInt(req.query.limit) : undefined
     const { userId } = req.params
 
     if (req.userId !== parseInt(userId)) {
@@ -52,6 +53,41 @@ router.get("/read/:userId", async (req, res) => {
     const allIncomes = await prisma.income.findMany({
       where: { userId: parseInt(userId) },
       orderBy: { createdAt: "desc" },
+      take: limit || undefined,
+    })
+
+    if (!allIncomes)
+      return res.status(404).json({ message: "No income found for user !!" })
+
+    res.json(allIncomes)
+  } catch (err) {
+    console.error(err.message)
+    return res.status(503).json({ message: err.message })
+  }
+})
+
+// last month
+router.get("/read/some/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params
+    const limit = req.query.limit ? parseInt(req.query.limit) : undefined
+
+    if (req.userId !== parseInt(userId)) {
+      return res.status(400).json({ message: "Forbidden. Access Denied !!" })
+    }
+
+    const lastMonth = new Date()
+    lastMonth.setDate(lastMonth.getDate() - 30)
+
+    const allIncomes = await prisma.income.findMany({
+      where: {
+        userId: parseInt(userId),
+        date: {
+          gte: lastMonth,
+        },
+      },
+      orderBy: { createdAt: "desc" },
+      take: limit || undefined,
     })
 
     if (!allIncomes)
