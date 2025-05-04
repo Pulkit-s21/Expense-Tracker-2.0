@@ -51,6 +51,7 @@ router.get("/read/:userId", async (req, res) => {
 
     const allIncomes = await prisma.income.findMany({
       where: { userId: parseInt(userId) },
+      orderBy: { createdAt: "desc" },
     })
 
     if (!allIncomes)
