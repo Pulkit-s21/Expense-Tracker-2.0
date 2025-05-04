@@ -10,11 +10,11 @@ import Barchart from "./Barchart"
 export const DetailArea = () => {
   const limit = 7
   return (
-    <div className="flex flex-col w-[80%] pr-4 py-6">
+    <div className="flex flex-col gap-6 w-[80%] pr-4 py-6">
       <QuickInfoArea />
 
       {/* recent & chart */}
-      <div className="flex gap-4 mt-10">
+      <div className="flex gap-4">
         <RecentTransactionArea
           detailFunc={getUserTransactions}
           heading={"Recent Transactions"}
@@ -25,7 +25,7 @@ export const DetailArea = () => {
       </div>
 
       {/* expense & chart */}
-      <div className="flex gap-4 mt-10">
+      <div className="flex gap-4">
         <RecentTransactionArea
           detailFunc={getTransactions}
           heading={"Recent Expenses"}
@@ -47,7 +47,7 @@ export const DetailArea = () => {
       </div>
 
       {/* income & chart */}
-      <div className="flex gap-4 mt-10">
+      <div className="flex gap-4">
         <OverviewArea
           heading={"Last 30 days incomes"}
           component={
