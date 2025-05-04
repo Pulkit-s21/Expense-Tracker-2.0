@@ -111,4 +111,43 @@ router.get(`/user/:id`, middleware, async (req, res) => {
   }
 })
 
+router.get(`/transactions/:userId`, middleware, async (req, res) => {
+  try {
+    const limit = req.query.limit ? parseInt(req.query.limit) : undefined
+    const { userId } = req.params
+    if (req.userId !== parseInt(userId)) {
+      return res.status(500).json({ message: "Forbidden. Access Denied" })
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: parseInt(userId) },
+      select: {
+        transaction: true,
+        income: true,
+      },
+    })
+
+    if (!user) {
+      return res.status(404).json({ message: "No user found with this id !!" })
+    }
+
+    const combined = [
+      ...user.transaction.map((item) => ({
+        ...item,
+        type: "expense",
+      })),
+      ...user.income.map((item) => ({ ...item, type: "income" })),
+    ]
+
+    const recent = combined
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .slice(0, limit)
+
+    res.json(recent)
+  } catch (err) {
+    console.error(err.message)
+    return res.status(503).json({ message: err.message })
+  }
+})
+
 export default router
