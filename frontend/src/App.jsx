@@ -47,4 +47,5 @@ export default App
 // : Pass transaction data to bar chart : DONE
 // : Customize bar chart : DONE
 // : Make bar chart reusable : DONE
-// TODO: Pass data for specified days only to bar charts
+// : Pass data for specified days only to bar charts : DONE
+// TODO: Create income & expense tabs
