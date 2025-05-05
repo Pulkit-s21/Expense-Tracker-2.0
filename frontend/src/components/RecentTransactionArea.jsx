@@ -36,7 +36,7 @@ export const RecentTransactionArea = ({
         <p>{heading}</p>
         <Link
           to={page}
-          className="bg-gray-100 px-3 rounded-md text-xs cursor-pointer flex gap-2 items-center font-medium"
+          className="bg-gray-100 hover:bg-violet-100 transition-all px-3 rounded-md text-xs cursor-pointer flex gap-2 items-center font-medium"
         >
           See All <FaLongArrowAltRight />
         </Link>
