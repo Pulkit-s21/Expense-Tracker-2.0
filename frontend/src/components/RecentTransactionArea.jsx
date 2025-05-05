@@ -12,11 +12,15 @@ export const RecentTransactionArea = ({
 }) => {
   const { user, token } = useContext(UserContext)
   const [transactionData, setTransactionData] = useState([])
+  const lastMonth = new Date()
+  lastMonth.setDate(lastMonth.getDate() - 30)
 
   const fetchInfo = async () => {
     try {
       const data = await detailFunc(user.id, token, limit)
-      setTransactionData(data)
+      setTransactionData(
+        data?.filter((item) => new Date(item.date) >= lastMonth) // only showing data for last month
+      )
     } catch (err) {
       console.error(err.message)
     }
