@@ -6,6 +6,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes.jsx"
 import { Home } from "./pages/Home.jsx"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Expense } from "./pages/Expense.jsx"
+import { Income } from "./pages/Income.jsx"
 
 function App() {
   return (
@@ -15,7 +16,14 @@ function App() {
         <Route path="/" element={<ProtectedRoutes element={<Home />} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/expense" element={<Expense />} />
+        <Route
+          path="/expense"
+          element={<ProtectedRoutes element={<Expense />} />}
+        />
+        <Route
+          path="/income"
+          element={<ProtectedRoutes element={<Income />} />}
+        />
       </Routes>
     </Router>
   )
@@ -43,9 +51,10 @@ export default App
 // : Add diff pages for sidebar links : DONE
 // TODO: Showing sidebar on each page by importing on all. Try a diff method where it doesnt reloads and part on right does
 // : Change recent transaction to get income + transaction for user : DONE
-// TODO: Add recent expense to get transaction for user
+// : Add recent expense to get transaction for user : DONE
 // : Pass transaction data to bar chart : DONE
 // : Customize bar chart : DONE
 // : Make bar chart reusable : DONE
 // : Pass data for specified days only to bar charts : DONE
+// : Return transactions which aren't deleted : DONE
 // TODO: Create income & expense tabs
