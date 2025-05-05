@@ -2,7 +2,14 @@ import { BarChart } from "@mui/x-charts/BarChart"
 import { useContext } from "react"
 import { UserContext } from "../helpers/UserContext"
 
-export const Barchart = ({ type, label, id, color, filter = true }) => {
+export const Barchart = ({
+  type,
+  label,
+  id,
+  color,
+  height = 300,
+  filter = true,
+}) => {
   const { userNumbers } = useContext(UserContext)
 
   // bcz we only show last month on dashboard
@@ -30,7 +37,7 @@ export const Barchart = ({ type, label, id, color, filter = true }) => {
 
   return (
     <BarChart
-      height={300}
+      height={height}
       series={[
         {
           data: data,
