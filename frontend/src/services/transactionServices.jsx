@@ -36,7 +36,7 @@ export const getTransactions = async (userId, token, limit) => {
 // update transaction
 export const updateTransaction = async (id, token, data) => {
   try {
-    const res = await axios.put(`${baseUrl}/transactions/edit/${id}`, data, {
+    const res = await axios.put(`${baseUrl}/transaction/edit/${id}`, data, {
       headers: {
         Authorization: token,
       },
@@ -49,10 +49,10 @@ export const updateTransaction = async (id, token, data) => {
   }
 }
 
-// delete transaction
+// delete transaction..if in put no body is being passed, send null
 export const deleteTransaction = async (id, token) => {
   try {
-    const res = await axios.put(`${baseUrl}/transactions/delete/${id}`, {
+    const res = await axios.put(`${baseUrl}/transaction/delete/${id}`, null, {
       headers: {
         Authorization: token,
       },
