@@ -32,22 +32,6 @@ export const getIncomes = async (userId, token, limit) => {
   }
 }
 
-// get last month incomes
-export const getMonthIncomes = async (userId, token, limit) => {
-  try {
-    const res = await axios.get(`${baseUrl}/income/read/some/${userId}`, {
-      headers: {
-        Authorization: token,
-        params: limit ? { limit } : {},
-      },
-    })
-    return res.data
-  } catch (err) {
-    console.error(err.message)
-    throw err
-  }
-}
-
 // update income
 export const updateIncome = async (id, data, token) => {
   try {

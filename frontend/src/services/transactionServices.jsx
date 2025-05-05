@@ -33,23 +33,6 @@ export const getTransactions = async (userId, token, limit) => {
   }
 }
 
-// get last month transactions
-export const getMonthTransactions = async (userId, token, limit) => {
-  try {
-    const res = await axios.get(`${baseUrl}/transaction/read/some/${userId}`, {
-      params: limit ? { limit } : {},
-      headers: {
-        Authorization: token,
-      },
-    })
-
-    return res.data
-  } catch (err) {
-    console.error(err.message)
-    throw err
-  }
-}
-
 // update transaction
 export const updateTransaction = async (id, token, data) => {
   try {
