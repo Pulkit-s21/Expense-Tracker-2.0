@@ -24,10 +24,20 @@ export const UserProvider = ({ children }) => {
   const token = localStorage.getItem("token")
 
   const logout = () => {
-    setUser(null)
-    setLoggedIn(false)
-    localStorage.removeItem("token")
-    window.location.href = "/login"
+    Swal.fire({
+      icon: "success",
+      title: "Logged out!",
+      showConfirmButton: false,
+      showCloseButton: false,
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      timer: 3000,
+    }).then(() => {
+      setUser(null)
+      setLoggedIn(false)
+      localStorage.removeItem("token")
+      window.location.href = "/login"
+    })
   }
 
   const logoutAlert = () => {
