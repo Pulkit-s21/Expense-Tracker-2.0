@@ -3,7 +3,7 @@ import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6"
 
 export const RecentTransaction = ({ logo, title, date, amount, type }) => {
   return (
-    <div className="flex justify-between items-center hover:bg-gray-100 p-2 rounded-md">
+    <div className="flex justify-between items-center hover:bg-gray-100 px-4 py-2 rounded-md">
       <div className="flex items-center gap-4">
         <img src={logo} alt="Icon" />
         <div className="flex flex-col">
