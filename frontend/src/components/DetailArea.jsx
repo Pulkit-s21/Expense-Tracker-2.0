@@ -40,6 +40,7 @@ export const DetailArea = () => {
               type="expense"
               label="Expense"
               id="expenseId"
+              height="300"
               color="red"
             />
           }
@@ -55,6 +56,7 @@ export const DetailArea = () => {
               type="income"
               label="Income"
               id="incomeId"
+              height="300"
               color="lightGreen"
             />
           }
