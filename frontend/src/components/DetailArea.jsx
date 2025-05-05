@@ -2,10 +2,10 @@ import { OverviewArea } from "./OverviewArea"
 import { QuickInfoArea } from "./QuickInfoArea"
 import { RecentTransactionArea } from "./RecentTransactionArea"
 import { getUserTransactions } from "../services/authServices"
-import { getMonthTransactions } from "../services/transactionServices"
-import { getMonthIncomes } from "../services/incomeServices"
+import { getTransactions } from "../services/transactionServices"
+import { getIncomes } from "../services/incomeServices"
 import { Chart } from "./Chart"
-import Barchart from "./Barchart"
+import { Barchart } from "./Barchart"
 
 export const DetailArea = () => {
   const limit = 7
@@ -27,7 +27,7 @@ export const DetailArea = () => {
       {/* expense & chart */}
       <div className="flex gap-4">
         <RecentTransactionArea
-          detailFunc={getMonthTransactions}
+          detailFunc={getTransactions}
           heading={"Recent Expenses"}
           limit={limit}
           page={"/expense"}
@@ -61,7 +61,7 @@ export const DetailArea = () => {
         />
 
         <RecentTransactionArea
-          detailFunc={getMonthIncomes}
+          detailFunc={getIncomes}
           heading={"Recent Incomes"}
           limit={limit}
           page={"/income"}
