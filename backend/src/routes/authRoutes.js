@@ -111,6 +111,7 @@ router.get(`/user/:id`, middleware, async (req, res) => {
   }
 })
 
+// all transactions
 router.get(`/transactions/:userId`, middleware, async (req, res) => {
   try {
     const limit = req.query.limit ? parseInt(req.query.limit) : undefined
@@ -122,8 +123,8 @@ router.get(`/transactions/:userId`, middleware, async (req, res) => {
     const user = await prisma.user.findUnique({
       where: { id: parseInt(userId) },
       select: {
-        transaction: true,
-        income: true,
+        transaction: { where: { isDeleted: false } },
+        income: { where: { isDeleted: false } },
       },
     })
 

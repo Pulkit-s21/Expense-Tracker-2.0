@@ -53,7 +53,7 @@ router.get("/read/:userId", async (req, res) => {
     }
 
     const allTransactions = await prisma.transaction.findMany({
-      where: { userId: parseInt(userId) },
+      where: { userId: parseInt(userId), isDeleted: false },
       orderBy: { createdAt: "desc" },
       take: limit || undefined,
     })
