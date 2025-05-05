@@ -10,7 +10,7 @@ import { Barchart } from "./Barchart"
 export const DetailArea = () => {
   const limit = 7
   return (
-    <div className="flex flex-col gap-6 w-[80%] pr-4 py-6">
+    <div className="flex flex-col gap-6 w-[85%] pr-4 py-6">
       <QuickInfoArea />
 
       {/* recent & chart */}
