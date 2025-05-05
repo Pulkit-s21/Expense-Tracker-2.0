@@ -70,42 +70,6 @@ router.get("/read/:userId", async (req, res) => {
   }
 })
 
-// last 30 days
-router.get("/read/some/:userId", async (req, res) => {
-  try {
-    const limit = req.query.limit ? parseInt(req.query.limit) : undefined
-    const { userId } = req.params
-
-    if (req.userId !== parseInt(userId)) {
-      return res.status(400).json({ message: "Forbidden. Access Denied !!" })
-    }
-
-    const lastMonth = new Date()
-    lastMonth.setDate(lastMonth.getDate() - 30)
-
-    const allTransactions = await prisma.transaction.findMany({
-      where: {
-        userId: parseInt(userId),
-        date: {
-          gte: lastMonth,
-        },
-      },
-      orderBy: { createdAt: "desc" },
-      take: limit || undefined,
-    })
-
-    if (!allTransactions)
-      return res
-        .status(404)
-        .json({ message: "No transaction found for user !!" })
-
-    res.json(allTransactions)
-  } catch (err) {
-    console.error(err.message)
-    return res.status(503).json({ message: err.message })
-  }
-})
-
 // update
 router.put("/edit/:id", async (req, res) => {
   try {
