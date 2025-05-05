@@ -58,3 +58,4 @@ export default App
 // : Pass data for specified days only to bar charts : DONE
 // : Return transactions which aren't deleted : DONE
 // TODO: Create income & expense tabs
+// TODO: Find a way to reload income and transaction on creating and deletion
