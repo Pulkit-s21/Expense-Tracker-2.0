@@ -1,23 +1,34 @@
 import { QuickInfoBox } from "./QuickInfoBox"
 import { useContext } from "react"
 import { UserContext } from "../helpers/UserContext.jsx"
+import { IoWalletOutline } from "react-icons/io5"
+import { GiTakeMyMoney } from "react-icons/gi"
+import { FaSackDollar } from "react-icons/fa6"
 
 export const QuickInfoArea = () => {
   const { total } = useContext(UserContext)
 
   const quickInfo = [
     {
-      logo: "",
+      logo: <FaSackDollar color="white" />,
       title: "Total Balance",
       amount: total.balance,
       type: "balance",
+      color: "bg-blue-500",
     },
-    { logo: "", title: "Total Income", amount: total.income, type: "income" },
     {
-      logo: "",
+      logo: <IoWalletOutline color="white" />,
+      title: "Total Income",
+      amount: total.income,
+      type: "income",
+      color: "bg-green-500",
+    },
+    {
+      logo: <GiTakeMyMoney color="white" />,
       title: "Total Expense",
       amount: total.expense,
-      type: "transaction",
+      type: "expense",
+      color: "bg-red-500",
     },
   ]
 
@@ -31,6 +42,7 @@ export const QuickInfoArea = () => {
             title={box.title}
             amount={box.amount}
             type={box.type}
+            color={box.color}
           />
         )
       })}
