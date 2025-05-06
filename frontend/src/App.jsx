@@ -59,3 +59,4 @@ export default App
 // : Return transactions which aren't deleted : DONE
 // TODO: Create income & expense tabs
 // TODO: Find a way to reload income and transaction on creating and deletion
+// : Group transactions by date for chart : DONE
