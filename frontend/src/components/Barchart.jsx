@@ -1,6 +1,7 @@
 import { BarChart } from "@mui/x-charts/BarChart"
 import { useContext } from "react"
 import { UserContext } from "../helpers/UserContext"
+import moment from "moment"
 
 export const Barchart = ({
   type,
@@ -16,24 +17,42 @@ export const Barchart = ({
   const thirtyDaysAgo = new Date()
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
 
-  const data =
+  const filteredData =
     userNumbers[type]
       ?.filter((item) => (filter ? new Date(item.date) >= thirtyDaysAgo : true))
-      .map((item) => item.amount) || []
+      .sort((a, b) => new Date(b.date) - new Date(a.date)) || []
 
-  const xLabels =
-    userNumbers[type]
-      ?.filter((item) => (filter ? new Date(item.date) >= thirtyDaysAgo : true))
-      .map((item) =>
-        item.title.length > 3 ? item.title.slice(0, 3) + "..." : item.title
-      ) || []
+  //   const data =
+  //     userNumbers[type]
+  //       ?.filter((item) => (filter ? new Date(item.date) >= thirtyDaysAgo : true))
+  //       .map((item) => item.amount) || []
 
-  const fullLabels =
-    userNumbers[type]
-      ?.filter((item) => (filter ? new Date(item.date) >= thirtyDaysAgo : true))
-      .map((item) => item.title) || []
+  //   const xLabels =
+  //     userNumbers[type]
+  //       ?.filter((item) => (filter ? new Date(item.date) >= thirtyDaysAgo : true))
+  //       .map((item) =>
+  //         item.title.length > 3 ? item.title.slice(0, 3) + "..." : item.title
+  //       ) || []
 
-  const fullLabelFormatter = (index) => fullLabels[index]
+  //   const fullLabels =
+  //     userNumbers[type]
+  //       ?.filter((item) => (filter ? new Date(item.date) >= thirtyDaysAgo : true))
+  //       .map((item) => item.title) || []
+
+  //   const fullLabelFormatter = (index) => fullLabels[index]
+
+  // Group by date and sum
+  const groupedByDate = filteredData.reduce((acc, item) => {
+    const date = moment(new Date(item.date).toISOString().split("T")[0])
+      .local()
+      .format("Do MMMM")
+    if (!acc[date]) acc[date] = 0
+    acc[date] += item.amount
+    return acc
+  }, {})
+
+  const xLabels = Object.keys(groupedByDate)
+  const data = Object.values(groupedByDate)
 
   return (
     <BarChart
@@ -44,9 +63,8 @@ export const Barchart = ({
           label: label,
           id: id,
           color: color,
-          valueFormatter: (value, context) => {
-            const index = context.dataIndex
-            return `${fullLabelFormatter(index)}: $ ${value}`
+          valueFormatter: (value) => {
+            return `$ ${value}`
           },
         },
       ]}
@@ -54,8 +72,6 @@ export const Barchart = ({
         {
           scaleType: "band",
           data: xLabels,
-          label: "Activities",
-          valueFormatter: (value, index) => fullLabelFormatter(index),
         },
       ]}
       yAxis={[{ label: "Amount" }]}
